@@ -15,7 +15,7 @@ def trim_crlf(string):
 def commas_fullchar(uiName):
     handle = Fun.GetElement(uiName,"Text_2")
     text = Fun.GetText(uiName,"Text_2")
-    fn = lambda x: x.replace(',', '，').replace('?', '？').replace('.', '。')
+    fn = lambda x: x.replace(',', '，').replace('?', '？').replace(';', '；').replace('(', '（').replace(')', '）')
     try:
         selected = handle.selection_get()
         return text.replace( selected, fn(selected) )
@@ -46,7 +46,7 @@ def extract_equation(uiName):
     handle = Fun.GetElement(uiName,"Text_2")
     text = Fun.GetText(uiName,"Text_2")
     text = text.replace('\nA.', '\nＡ').replace('\nB.', '\nＢ').replace('\nC.', '\nＣ').replace('\nD.', '\nＤ')
-    regex = r"([\d\-a-zA-Z\\\.\ \<\>\=\{\}\_]+)"
+    regex = r"([\d\-a-zA-Z\\\.\ \<\>\=\{\}\_\/]+)"
     try:
         selected = handle.selection_get()
         text = text.replace( selected, re.sub(regex, regex_matched_parser, selected, 0, re.MULTILINE) )
@@ -78,5 +78,5 @@ def replace_greek_letter(string):
 def fix_subscript_period(string):
     return string.replace('。', r'_{0}')
 def remarkable_unit(string):
-    return string.replace('cm', '\\ \\mathrm{cm}')
+    return string.replace('cm', '\\ \\mathrm{cm}').replace('N/kg', '\\ \\mathrm{N/kg}')
 
