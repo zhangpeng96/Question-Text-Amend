@@ -27,11 +27,17 @@ def Button_6_onCommand(uiName,widgetName):
     print(text)
     Fun.SetText(uiName,"Text_2","？？？\n" + text)
 def Button_11_onCommand(uiName,widgetName):
-    uiEle = Fun.GetElement(uiName,"ListBox_10")
-    text = Fun.GetText(uiName,"Text_2")
-    enabled = [ i for i in uiEle.curselection() ]
-    print(enabled)
-    Fun.SetText(uiName,"Text_2", text.replace('cm', '\\ \\mathrm{cm}') )
+    enabled = [ i for i in  Fun.GetElement(uiName,"ListBox_10").curselection() ]
+    text = Core.inline_replace(uiName, enabled)
+    Fun.SetText(uiName,"Text_2", text)
 def Button_14_onCommand(uiName,widgetName):
     uiEle = Fun.GetElement(uiName,"ListBox_10")
     uiEle.selection_clear(0, tkinter.END)
+def Button_16_onCommand(uiName,widgetName):
+    text = Core.extract_equation(uiName)
+    Fun.SetText(uiName,"Text_2",text)
+    # Core.inline_replace(uiName, [])
+    # text = Core.fix_subscript_period(uiName)
+    # Fun.SetText(uiName,"Text_2",text)
+    # print(text)
+

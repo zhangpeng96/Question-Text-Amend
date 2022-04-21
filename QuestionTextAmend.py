@@ -86,6 +86,7 @@ class  QuestionTextAmend:
         ListBox_10.configure(selectmode = "multiple")
         ListBox_10.insert(tkinter.END,"希腊字母")
         ListBox_10.insert(tkinter.END,"显著单位")
+        ListBox_10.insert(tkinter.END,"句号修正下标")
         ListBox_10_Scrollbar = tkinter.Scrollbar(ListBox_10,orient=tkinter.VERTICAL)
         ListBox_10_Scrollbar.place(x = 100,y = 0,width = 20,height = 150)
         ListBox_10_Scrollbar.config(command = ListBox_10.yview)
@@ -104,6 +105,7 @@ class  QuestionTextAmend:
         Button_16 = tkinter.Button(LabelFrame_13,text="公式",width = 10,height = 4)
         Fun.Register(uiName,'Button_16',Button_16,'btn_equation')
         Fun.SetControlPlace(uiName,'Button_16',138,8,50,30)
+        Button_16.configure(command=lambda:QuestionTextAmend_cmd.Button_16_onCommand(uiName,"Button_16"))
         #Inital all element's Data 
         Fun.InitElementData(uiName)
         #Add Some Logic Code Here: (Keep This Line of comments)
