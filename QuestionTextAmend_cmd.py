@@ -7,11 +7,11 @@ import tkinter
 import tkinter.filedialog
 from   tkinter import *
 import Fun
-import Core
 ElementBGArray={}  
 ElementBGArray_Resize={} 
 ElementBGArray_IM={} 
 
+import Core
 def ListBox_10_onSelect(event,uiName,widgetName):
     print(event)
     pass
