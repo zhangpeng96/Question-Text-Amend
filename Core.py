@@ -12,6 +12,26 @@ def selected_crlf(uiName):
 def trim_crlf(string):
     return string.replace('\n', '').replace('\n', '')
 
+def commas_fullchar(uiName):
+    handle = Fun.GetElement(uiName,"Text_2")
+    text = Fun.GetText(uiName,"Text_2")
+    fn = lambda x: x.replace(',', '，').replace('?', '？').replace('.', '。')
+    try:
+        selected = handle.selection_get()
+        return text.replace( selected, fn(selected) )
+    except Exception as e:
+        return fn(text)
+
+def dot_period(uiName):
+    handle = Fun.GetElement(uiName,"Text_2")
+    text = Fun.GetText(uiName,"Text_2")
+    fn = lambda x: x.replace('。', '．').replace(' 、', '、').replace('、 ', '、').replace(' ，', '，').replace('， ', '，').replace(' 。', '。').replace('。 ', '。')
+    try:
+        selected = handle.selection_get()
+        return text.replace( selected, fn(selected) )
+    except Exception as e:
+        return fn(text)
+
 def regex_matched_parser(it):
     (start, end), text, result = it.span(), it.group(), ''
     if text.strip():
@@ -25,43 +45,28 @@ def regex_matched_parser(it):
 def extract_equation(uiName):
     handle = Fun.GetElement(uiName,"Text_2")
     text = Fun.GetText(uiName,"Text_2")
-    regex = r"([\d\-a-zA-Z\\\.\ \<\>\=]+)"
+    text = text.replace('\nA.', '\nＡ').replace('\nB.', '\nＢ').replace('\nC.', '\nＣ').replace('\nD.', '\nＤ')
+    regex = r"([\d\-a-zA-Z\\\.\ \<\>\=\{\}\_]+)"
     try:
         selected = handle.selection_get()
-        return text.replace( selected, re.sub(regex, regex_matched_parser, selected, 0, re.MULTILINE) )
+        text = text.replace( selected, re.sub(regex, regex_matched_parser, selected, 0, re.MULTILINE) )
+        text = text.replace('\nＡ', '\nA.').replace('\nＢ', '\nB.').replace('\nＣ', '\nC.').replace('\nＤ', '\nD.')
+        return text
     except Exception as e:
-        return re.sub(regex, regex_matched_parser, text, 0, re.MULTILINE)
+        text = re.sub(regex, regex_matched_parser, text, 0, re.MULTILINE)
+        text = text.replace('\nＡ', '\nA.').replace('\nＢ', '\nB.').replace('\nＣ', '\nC.').replace('\nＤ', '\nD.')
+        return text
 
 def inline_replace(uiName, enabled, delimiter=True):
     handle = Fun.GetElement(uiName,"Text_2")
     text = Fun.GetText(uiName,"Text_2")
-    print(enabled, uiName)
     # 功能函数表映射
     fn_map = [replace_greek_letter, remarkable_unit, fix_subscript_period]
-    try:
-        selected = handle.selection_get()
-        replaced =  selected
-        for i in enabled:
-            replaced = fn_map[i](replaced)
-            print(i, replaced)
-        result = text.replace( selected, replaced )
-        return result
-        # # 是否定界
-        # if delimiter:
-        #     return ' ${}$ '.format(result)
-        # else:
-        #     return result
-    except Exception as e:
-        result = text
+    result = text
+    for i in enabled:
+        result = fn_map[i](result)
         print(result)
-        for i in enabled:
-            result = fn_map[i](result)
-            print(result)
-        return result 
-        # # 是否定界
-        # if delimiter:
-        #     return ' ${}$ '.format(result)
-        # else:
+    return result
             
 def replace_greek_letter(string):
     greeks = {

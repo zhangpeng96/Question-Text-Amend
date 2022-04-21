@@ -37,7 +37,7 @@ class  QuestionTextAmend:
         Fun.Register(uiName,'LabelFrame_3',LabelFrame_3,'frame_1')
         Fun.SetControlPlace(uiName,'LabelFrame_3',590,10,200,130)
         LabelFrame_3.configure(relief = "groove")
-        Button_15 = tkinter.Button(LabelFrame_3,text="换行",width = 10,height = 4)
+        Button_15 = tkinter.Button(LabelFrame_3,text="单行",width = 10,height = 4)
         Fun.Register(uiName,'Button_15',Button_15)
         Fun.SetControlPlace(uiName,'Button_15',8,8,70,28)
         Button_15.configure(command=lambda:QuestionTextAmend_cmd.Button_15_onCommand(uiName,"Button_15"))

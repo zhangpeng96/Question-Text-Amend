@@ -19,13 +19,15 @@ def Button_15_onCommand(uiName,widgetName):
     text = Core.selected_crlf(uiName)
     Fun.SetText(uiName,"Text_2",text)
     print(text)
+
 def Button_5_onCommand(uiName,widgetName):
-    pass
+    text = Core.dot_period(uiName)
+    Fun.SetText(uiName,"Text_2", text)
+
 def Button_6_onCommand(uiName,widgetName):
-    text = Fun.GetText(uiName,"Text_2")
-    print("pass!")
-    print(text)
-    Fun.SetText(uiName,"Text_2","？？？\n" + text)
+    text = Core.commas_fullchar(uiName)
+    Fun.SetText(uiName,"Text_2", text)
+
 def Button_11_onCommand(uiName,widgetName):
     enabled = [ i for i in  Fun.GetElement(uiName,"ListBox_10").curselection() ]
     text = Core.inline_replace(uiName, enabled)
